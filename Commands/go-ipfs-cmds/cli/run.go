@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ipfs/go-ipfs-cmds"
+	cmds "github.com/ipfs/go-ipfs-cmds"
 )
 
 // ExitError is the error used when a specific exit code needs to be returned.
@@ -23,6 +23,8 @@ type Closer interface {
 	Close()
 }
 
+// 打印帮助信息
+//
 func Run(ctx context.Context, root *cmds.Command,
 	cmdline []string, stdin, stdout, stderr *os.File,
 	buildEnv cmds.MakeEnvironment, makeExecutor cmds.MakeExecutor) error {
@@ -48,6 +50,7 @@ func Run(ctx context.Context, root *cmds.Command,
 	defer cancel()
 
 	// this is a message to tell the user how to get the help text
+	// 将帮助信息打印出来：显示给用户
 	printMetaHelp := func(w io.Writer) {
 		cmdPath := strings.Join(req.Path, " ")
 		fmt.Fprintf(w, "Use '%s %s --help' for information about this command\n", cmdline[0], cmdPath)
@@ -72,6 +75,7 @@ func Run(ctx context.Context, root *cmds.Command,
 
 	// BEFORE handling the parse error, if we have enough information
 	// AND the user requested help, print it out and exit
+	// 在处理问题之前，如果有用户需要帮助信息，那么打印出来
 	err := HandleHelp(cmdline[0], req, stdout)
 	if err == nil {
 		return nil
@@ -82,10 +86,12 @@ func Run(ctx context.Context, root *cmds.Command,
 
 	// ok now handle parse error (which means cli input was wrong,
 	// e.g. incorrect number of args, or nonexistent subcommand)
+	// 处理解析出来的命令行错误信息：错误数值 / 不存在的子命令
 	if errParse != nil {
 		printErr(errParse)
 
 		// this was a user error, print help
+		// 用户输入错误，打印帮助信息
 		if req != nil && req.Command != nil {
 			fmt.Fprintln(stderr) // i need some space
 			printHelp(false, stderr)
@@ -97,6 +103,9 @@ func Run(ctx context.Context, root *cmds.Command,
 	// here we handle the cases where
 	// - commands with no Run func are invoked directly.
 	// - the main command is invoked.
+	// 处理以下错误
+	// - 直接调用没有 运行函数 的命令
+	// - 主命令被调用
 	if req == nil || req.Command == nil || req.Command.Run == nil {
 		printHelp(false, stdout)
 		return nil
@@ -104,15 +113,19 @@ func Run(ctx context.Context, root *cmds.Command,
 
 	cmd := req.Command
 
+	// 绑定上下文
 	env, err := buildEnv(req.Context, req)
 	if err != nil {
 		printErr(err)
 		return err
 	}
+	// 如果有关闭函数，则在完成命令调用后，关闭
 	if c, ok := env.(Closer); ok {
 		defer c.Close()
 	}
 
+	// 执行
+	// 调用 客户端 或 远端 api
 	exctr, err := makeExecutor(req, env)
 	if err != nil {
 		printErr(err)
