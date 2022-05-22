@@ -24,6 +24,9 @@ var log = logging.Logger("unixfs")
 // The size is not the *exact* block size of the encoded BasicDirectory but just
 // the estimated size based byte length of links name and CID (BasicDirectory's
 // ProtoNode doesn't use the Data field so this estimate is pretty accurate).
+// HAMTShardingSize 是一个全局选项
+// 当 基础目录 超过预期值时，运行切换到 HAMTDirectory
+// 默认值是 0 表示禁用该选项
 var HAMTShardingSize = int(256 * units.KiB)
 
 // DefaultShardWidth is the default value used for hamt sharding width.
