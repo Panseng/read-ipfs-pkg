@@ -8,7 +8,8 @@
 
 > go-ipfs-exchange-offline implements the go-ipfs-exchange-interface
 
-This is an offline exchange implementation which will not perform any request.
+不执行任何请求的离线文件交换实现。
+> This is an offline exchange implementation which will not perform any request.
 
 ## Table of Contents
 

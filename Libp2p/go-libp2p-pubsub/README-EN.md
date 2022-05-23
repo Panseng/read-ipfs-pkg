@@ -1,5 +1,3 @@
-# [英文文档](./README-EN.md)
-
 # go-libp2p-pubsub
 
 <p align="left">
@@ -18,15 +16,10 @@
   <br>
 </p>
 
-本依赖是 libp2p 规范**订阅发布**的实现，我们提供了**3种**消息路由选项：
-- Floodsub: 基于洪泛路由协议
-- Randomsub: 这是一个简单的概率路由，可以订阅 peers 的随机子集
-- Gossipsub: 在 Floodsub 基础上，更先进的路由，具有网格形成 & 消息传播的功能。参见 [spec](https://github.com/libp2p/specs/tree/master/pubsub/gossipsub) & [implementation](https://github.com/libp2p/go-libp2p-pubsub/blob/master/gossipsub.go)
-
-Gossipsub 相关文档: 
-- 协议：https://blog.csdn.net/u013288190/article/details/110809307
-- 重点：https://www.jianshu.com/p/e67aacb0966c
-- 以 rust 为例讲解：https://lequ7.com/guan-yu-rust-qian-tan-gossipsub.html
+This repo contains the canonical pubsub implementation for libp2p. We currently provide three message router options:
+- Floodsub, which is the baseline flooding protocol.
+- Randomsub, which is a simple probabilistic router that propagates to random subsets of peers.
+- Gossipsub, which is a more advanced router with mesh formation and gossip propagation. See [spec](https://github.com/libp2p/specs/tree/master/pubsub/gossipsub) and  [implementation](https://github.com/libp2p/go-libp2p-pubsub/blob/master/gossipsub.go) for more details.
 
 
 ## Repo Lead Maintainer
@@ -63,8 +56,6 @@ To be used for messaging in p2p instrastructure (as part of libp2p) such as IPFS
 ### Example
 
 https://github.com/libp2p/go-libp2p/tree/master/examples/pubsub
-
-文档: https://github.com/libp2p/go-libp2p/tree/master/examples/pubsub/chat
 
 ## Documentation
 

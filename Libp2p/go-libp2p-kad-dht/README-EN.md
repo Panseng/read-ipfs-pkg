@@ -1,5 +1,3 @@
-# [原文档](./README-EN.md)
-
 # go-libp2p-kad-dht
 
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](https://protocol.ai)
@@ -9,7 +7,7 @@
 [![Build Status](https://travis-ci.org/libp2p/go-libp2p-kad-dht.svg?branch=master)](https://travis-ci.org/libp2p/go-libp2p-kad-dht)
 [![Discourse posts](https://img.shields.io/discourse/https/discuss.libp2p.io/posts.svg)](https://discuss.libp2p.io)
 
->go-libp2p 的 Kademlia DHT 实现: 以 Kademlia 为原型，参照 S/Kademlia 进行了修改
+> A Kademlia DHT implementation on go-libp2p
 
 ## Table of Contents
 

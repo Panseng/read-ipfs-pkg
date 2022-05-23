@@ -10,6 +10,7 @@
 
 > A libp2p router that uses pubsub.
 
+我们目前仅将其用于 IPNS 进行发布订阅
 We currently only use this for IPNS over PubSub.
 
 ## Documenation

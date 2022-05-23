@@ -21,29 +21,41 @@ go-unixfs
 - [License](#license)
 
 ## Package Directory
-This package contains many subpackages, each of which can be very large on its own.
+此包 包含多个子包，每个子包都可以非常大。
+> This package contains many subpackages, each of which can be very large on its own.
 
 ### Top Level
-The top level unixfs package defines the unixfs format datastructures, and some helper methods around it.
+顶层 unixfs 包定义数据结构 和 围绕它的辅助方法。
+> The top level unixfs package defines the unixfs format datastructures, and some helper methods around it.
 
 ### importers
-The `importer` subpackage is what you'll use when you want to turn a normal file into a unixfs file.
+当您想将普通文件转换为 unixfs 文件时将使用 `importer` 子包。
+> The `importer` subpackage is what you'll use when you want to turn a normal file into a unixfs file.
 
 ### io
-The `io` subpackage provides helpers for reading files and manipulating directories. The `DagReader` takes a
-reference to a unixfs file and returns a file handle that can be read from and seeked through. The `Directory`
-interface allows you to easily read items in a directory, add items to a directory, and do lookups.
+`io` 提供 文件读取 & 目录操作。
+> The `io` subpackage provides helpers for reading files and manipulating directories.
+
+`DagReader` 将关联一个 unixfs file 文件，并返回 文件句柄（用于查找 & 读取 内容）。
+> The `DagReader` takes a reference to a unixfs file and returns a file handle that can be read from and seeked through. \
+> DAG: 有向无环图
+
+`Directory` 类，简化目录的 内容读取、添入、查找。
+> The `Directory` interface allows you to easily read items in a directory, add items to a directory, and do lookups.
 
 ### mod
-The `mod` subpackage implements a `DagModifier` type that can be used to write to an existing unixfs file, or
+`mod` 是 `DagModifier` 类的实现，用于 写入已存在 或 创建新 的 unixfs file。它的逻辑明显要比 `DagReader` 复杂，因此剥离。
+> The `mod` subpackage implements a `DagModifier` type that can be used to write to an existing unixfs file, or
 create a new one. The logic for this is significantly more complicated than for the dagreader, so its a separate
 type. (TODO: maybe it still belongs in the `io` subpackage though?)
 
 ### hamt
-The `hamt` subpackage implements a CHAMP hamt that is used in unixfs directory sharding.
+`hamt` 是 CHAMP hamt 的实现，用于 unixfs directory 切片。
+> The `hamt` subpackage implements a CHAMP hamt that is used in unixfs directory sharding.
 
 ### archive
-The `archive` subpackage implements a `tar` importer and exporter. The objects created here are not officially unixfs,
+`archive` 是 `tar` 压缩 & 解压 的实现。目前还不是正式的 unixfs 子包，但未来可能会合并。
+> The `archive` subpackage implements a `tar` importer and exporter. The objects created here are not officially unixfs,
 but in the future, this may be integrated more directly.
 
 ### test

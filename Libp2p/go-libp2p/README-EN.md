@@ -1,11 +1,9 @@
 
-# [英文文档](./README-EN.md)
-
 <h1 align="center">
   <a href="libp2p.io"><img width="250" src="https://github.com/libp2p/libp2p/blob/master/logo/black-bg-2.png?raw=true" alt="libp2p hex logo" /></a>
 </h1>
 
-<h3 align="center">Go 语言实现的 p2p 网络堆栈库</h3>
+<h3 align="center">The Go implementation of the libp2p Networking Stack.</h3>
 
 <p align="center">
   <a href="http://protocol.ai"><img src="https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square" /></a>
@@ -14,46 +12,48 @@
   <a href="https://discuss.libp2p.io"><img src="https://img.shields.io/discourse/https/discuss.libp2p.io/posts.svg"/></a>
 </p>
 
-# 目录
+# Table of Contents
 
-- [背景](#背景)
-- [用法](#用法)
-  - [样例](#样例)
-- [开发](#开发)
-  - [go-libp2p 工作区](#go-libp2p 工作区)
-  - [测试](#测试)
+- [Background](#background)
+- [Usage](#usage)
+  - [Examples](#examples)
+- [Development](#development)
+  - [Using the go-libp2p Workspace](#using-the-go-libp2p-workspace)
+  - [Tests](#tests)
   - [Packages](#packages)
 - [Contribute](#contribute)
 - [Supported Go Versions](#supported-go-versions)
 
-## 背景
+## Background
 
-[libp2p](https://github.com/libp2p/specs) 是一个独立于 [IPFS 项目](https://github.com/ipfs/ipfs) 的网络堆栈模块，并且可以单独使用。
+[libp2p](https://github.com/libp2p/specs) is a networking stack and library modularized out of [The IPFS Project](https://github.com/ipfs/ipfs), and bundled separately for other tools to use.
 >
-libp2p 是一个有着长远，兼容丰富的点对点协议，有着宏观追求的产品——深入理解互联网的网络堆栈。在过去15年，构建大型 p2p 系统非常复杂且困难，而 libp2p 提供了解决方案。这是一个互联网堆栈，一个协议套件，结构清晰的，仅使用需要的协议就可以支持复杂应用，同时满足操作性和可升级。libp2p 成长于 IPFS ，但也可以为其他用户、项目服务。
+libp2p is the product of a long, and arduous quest of understanding -- a deep dive into the internet's network stack, and plentiful peer-to-peer protocols from the past. Building large-scale peer-to-peer systems has been complex and difficult in the last 15 years, and libp2p is a way to fix that. It is a "network stack" -- a protocol suite -- that cleanly separates concerns, and enables sophisticated applications to only use the protocols they absolutely need, without giving up interoperability and upgradeability. libp2p grew out of IPFS, but it is built so that lots of people can use it, for lots of different projects.
 
 To learn more, check out the following resources:
-- [**文档**](https://docs.libp2p.io)
-- [**社区**](https://discuss.libp2p.io)
-- [**libp2p 规范**](https://github.com/libp2p/specs)
-- [**js-libp2p 实现**](https://github.com/libp2p/js-libp2p)
-- [**rust-libp2p 实现**](https://github.com/libp2p/rust-libp2p)
+- [**Our documentation**](https://docs.libp2p.io)
+- [**Our community discussion forum**](https://discuss.libp2p.io)
+- [**The libp2p Specification**](https://github.com/libp2p/specs)
+- [**js-libp2p implementation**](https://github.com/libp2p/js-libp2p)
+- [**rust-libp2p implementation**](https://github.com/libp2p/rust-libp2p)
 
-## 用法
+## Usage
 
-`go-libp2p` 作为 libp2p 堆栈的 Go 语言实现的模块切入点。你可以通过添加引用来开始使用 go-libp2p，如：
+This repository (`go-libp2p`) serves as the entrypoint to the universe of modules that compose the Go implementation of the libp2p stack.
+
+You can start using go-libp2p in your Go application simply by adding imports from our repos, e.g.:
 
 ```go
 import "github.com/libp2p/go-libp2p"
 ```
 
-### 样例
+### Examples
 
-[文件夹](examples).
+Examples can be found in the [examples folder](examples).
 
-## 开发
+## Development
 
-### go-libp2p 工作区
+### Using the go-libp2p Workspace
 
 While developing, you may need to make changes to several modules at once, or you may want changes made locally in one module to be available for import by another.
 
@@ -65,7 +65,7 @@ Once you've committed your changes, you can switch back to "remote mode", which 
 
 See the [workspace repo](https://github.com/libp2p/workspace-go-libp2p) for more information.
 
-### 测试
+### Tests
 
 `go test ./...` will run all tests in the repo.
 
