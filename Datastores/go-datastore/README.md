@@ -6,7 +6,8 @@
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 [![GoDoc](https://godoc.org/github.com/ipfs/go-datastore?status.svg)](https://godoc.org/github.com/ipfs/go-datastore)
 
-> key-value datastore interfaces
+> 键值对 数据存储接口
+> > key-value datastore interfaces
 
 ## Lead Maintainer
 
@@ -20,10 +21,11 @@
 - [License](#license)
 
 ## Background
+Datastore 是 数据存储 & 数据访问 的通用抽象层。它是一个简单的 API，旨在以与**数据存储无关**的方式启用应用程序开发，允许在不更改应用程序代码的情况下**无缝交换数据存储**。因此，可以利用具有不同优势的不同数据存储，而不需要将应用程序在其整个生命周期中投入一个数据存储。
+> Datastore is a generic layer of abstraction for data store and database access. It is a simple API with the aim to enable application development in a datastore-agnostic way, allowing datastores to be swapped seamlessly without changing application code. Thus, one can leverage different datastores with different strengths without committing the application to one datastore throughout its lifetime.
 
-Datastore is a generic layer of abstraction for data store and database access. It is a simple API with the aim to enable application development in a datastore-agnostic way, allowing datastores to be swapped seamlessly without changing application code. Thus, one can leverage different datastores with different strengths without committing the application to one datastore throughout its lifetime.
-
-In addition, grouped datastores significantly simplify interesting data access patterns (such as caching and sharding).
+此外，分组的数据存储大大简化了对感兴趣数据的访问模式
+> In addition, grouped datastores significantly simplify interesting data access patterns (such as caching and sharding).
 
 Based on [datastore.py](https://github.com/datastore/datastore).
 

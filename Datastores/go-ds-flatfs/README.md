@@ -8,11 +8,14 @@
 [![Build Status](https://travis-ci.org/ipfs/go-ds-flatfs.svg?branch=master)](https://travis-ci.org/ipfs/go-ds-flatfs)
 [![Coverage Status](https://img.shields.io/codecov/c/github/ipfs/go-ds-flatfs.svg)](https://codecov.io/gh/ipfs/go-ds-flatfs)
 
+> datastore 实现：使用 分片目录 & flat files 存储数据 
+> > A datastore implementation using sharded directories and flat files to store data
+> > Flat File是一种包含没有相对关系结构的记录的文件。这个类型通常用来描述文字处理、其他结构字符或标记被移除了的文本。
 
-> A datastore implementation using sharded directories and flat files to store data
+`go-ds-flatfs` 是 `go-ipfs` 在磁盘上存储**原始数据**的库。它支持多种分片方法：前缀、后缀、依次（next-to-last）？
+> `go-ds-flatfs` is used by `go-ipfs` to store raw block contents on disk. It supports several sharding functions (prefix, suffix, next-to-last/*).
 
-`go-ds-flatfs` is used by `go-ipfs` to store raw block contents on disk. It supports several sharding functions (prefix, suffix, next-to-last/*).
-
+它并不是一个通用的数据存储，并且有几个重要现在：有关详情，参阅限制部分代码
 It is _not_ a general-purpose datastore and has several important restrictions.
 See the restrictions section for details.
 
@@ -24,6 +27,8 @@ See the restrictions section for details.
 
 - [Install](#install)
 - [Usage](#usage)
+  - [限制](#限制)
+  - [硬盘使用性能与准确性](#硬盘使用性能与准确性)
 - [Contribute](#contribute)
 - [License](#license)
 
@@ -41,17 +46,19 @@ import "github.com/ipfs/go-ds-flatfs"
 Check the [GoDoc module documentation](https://godoc.org/github.com/ipfs/go-ds-flatfs) for an overview of this module's
 functionality.
 
-### Restrictions
+### 限制
 
-FlatFS keys are severely restricted. Only keys that match `/[0-9A-Z+-_=]\+` are
+FlatFS 键值有几个限制：只有符合 `/[0-9A-Z+-_=]\+` 规则的键值才是合法的。这是因为键值可以直接写入文件系统而无需编码。
+> FlatFS keys are severely restricted. Only keys that match `/[0-9A-Z+-_=]\+` are
 allowed. That is, keys may only contain upper-case alpha-numeric characters,
 '-', '+', '_', and '='. This is because values are written directly to the
 filesystem without encoding.
 
-Importantly, this means namespaced keys (e.g., /FOO/BAR), are _not_ allowed.
+显然，这意味着命名空间键值是不被允许的（如 /FOO/BAR）。尝试写入类似键值将返回 error。
+> Importantly, this means namespaced keys (e.g., /FOO/BAR), are _not_ allowed.
 Attempts to write to such keys will result in an error.
 
-### DiskUsage and Accuracy
+### 硬盘使用性能与准确性
 
 This datastore implements the [`PersistentDatastore`](https://godoc.org/github.com/ipfs/go-datastore#PersistentDatastore) interface. It offers a `DiskUsage()` method which strives to find a balance between accuracy and performance. This implies:
 

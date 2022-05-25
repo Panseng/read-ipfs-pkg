@@ -7,7 +7,8 @@ go-block-format
 [![Coverage Status](https://codecov.io/gh/ipfs/go-block-format/branch/master/graph/badge.svg)](https://codecov.io/gh/ipfs/go-block-format/branch/master)
 [![Travis CI](https://travis-ci.org/ipfs/go-block-format.svg?branch=master)](https://travis-ci.org/ipfs/go-block-format)
 
-> go-block-format is a set of interfaces that a type needs to implement in order to be a CID addressable block of data.
+> go-block-format 是 为了生成 CID 可寻址的数据块 而实现的接口。
+> > go-block-format is a set of interfaces that a type needs to implement in order to be a CID addressable block of data.
 
 ## Lead Maintainer
 

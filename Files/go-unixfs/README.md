@@ -7,7 +7,8 @@ go-unixfs
 [![Coverage Status](https://codecov.io/gh/ipfs/go-unixfs/branch/master/graph/badge.svg)](https://codecov.io/gh/ipfs/go-unixfs/branch/master)
 [![Travis CI](https://travis-ci.org/ipfs/go-unixfs.svg?branch=master)](https://travis-ci.org/ipfs/go-unixfs)
 
-> go-unixfs implements unix-like filesystem utilities on top of an ipld merkledag
+> go-unixfs 是在 IPLD merkledag 之上的类 Unix 文件系统。
+> > go-unixfs implements unix-like filesystem utilities on top of an ipld merkledag
 
 ## Lead Maintainer
 
@@ -21,7 +22,7 @@ go-unixfs
 - [License](#license)
 
 ## Package Directory
-此包 包含多个子包，每个子包都可以非常大。
+此包 包含多个子包，每个子包都可以是非常大的个体。
 > This package contains many subpackages, each of which can be very large on its own.
 
 ### Top Level

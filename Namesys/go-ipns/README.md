@@ -6,9 +6,11 @@
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 [![GoDoc](https://godoc.org/github.com/ipfs/go-datastore?status.svg)](https://godoc.org/github.com/ipfs/go-ipns)
 
-> ipns record definitions
+> 定义 ipns 记录
+> > ipns record definitions
 
-This package contains all of the components necessary to create, understand, and validate IPNS records. It does *not* publish or resolve those records. [`go-ipfs`](https://github.com/ipfs/go-ipfs) uses this package internally to manipulate records.
+这个库 包含了创建、理解、验证 IPNS 记录的必要组件。它不会发布或解析这些记录。 [`go-ipfs`](https://github.com/ipfs/go-ipfs) 在内部使用它来操作记录。
+> This package contains all of the components necessary to create, understand, and validate IPNS records. It does *not* publish or resolve those records. [`go-ipfs`](https://github.com/ipfs/go-ipfs) uses this package internally to manipulate records.
 
 ## Lead Maintainer
 

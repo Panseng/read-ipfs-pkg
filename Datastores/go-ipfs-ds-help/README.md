@@ -6,7 +6,8 @@
 [![GoDoc](https://godoc.org/github.com/ipfs/go-ipfs-ds-help?status.svg)](https://godoc.org/github.com/ipfs/go-ipfs-ds-help)
 [![Build Status](https://travis-ci.org/ipfs/go-ipfs-ds-help.svg?branch=master)](https://travis-ci.org/ipfs/go-ipfs-ds-help)
 
-> go-ipfs-ds-help provides utilities for parsing and creating datastore keys used by go-ipfs.
+> go-ipfs-ds-help 提供用于解析和创建 go-ipfs 使用的数据存储密钥 方法
+> > go-ipfs-ds-help provides utilities for parsing and creating datastore keys used by go-ipfs.
 
 ## Table of Contents
 

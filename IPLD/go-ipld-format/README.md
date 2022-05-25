@@ -7,6 +7,7 @@ go-ipld-format
 [![Coverage Status](https://codecov.io/gh/ipfs/go-ipld-format/branch/master/graph/badge.svg)](https://codecov.io/gh/ipfs/go-ipld-format/branch/master)
 [![Travis CI](https://travis-ci.org/ipfs/go-ipld-format.svg?branch=master)](https://travis-ci.org/ipfs/go-ipld-format)
 
+> go 语言实现的  
 > go-ipld-format is a set of interfaces that a type needs to implement in order to be a part of the ipld merkle-forest.
 
 ## Lead Maintainer

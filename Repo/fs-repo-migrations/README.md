@@ -5,9 +5,29 @@
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-> Migrations for the filesystem repository of ipfs nodes
+> ipfs 节点的文件系统存储库的迁移
+> > Migrations for the filesystem repository of ipfs nodes
 
-These are migrations for the filesystem repository of [ipfs](https://github.com/ipfs/ipfs) nodes. Each migration builds a separate binary that converts a repository to the next version.  The `fs-repo-migrations` is a tool that downloads individual migrations from the ipfs distribution site and applies them in sequence to migrate the ipfs repository to the target version.  This tool is written in Go, and developed alongside [go-ipfs](https://github.com/ipfs/go-ipfs).
+ ipfs 节点的文件系统存储库的每次迁移都会构建一个单独的二进制文件，用于将存储库转换到目标版本（下一个版本）。`fs-repo-migrations` 用于从 IPFS 分发站点下载迁移数据，并按序迁移 IPFS 存储库到目标版本。这个工具用 go 语言编写，与 go-ipfs 一起开发。
+> These are migrations for the filesystem repository of [ipfs](https://github.com/ipfs/ipfs) nodes. Each migration builds a separate binary that converts a repository to the next version.  The `fs-repo-migrations` is a tool that downloads individual migrations from the ipfs distribution site and applies them in sequence to migrate the ipfs repository to the target version.  This tool is written in Go, and developed alongside [go-ipfs](https://github.com/ipfs/go-ipfs).
+
+## 带插件的迁移
+**注意**：如果数据存储有使用插件，如 [ipfs-ds-s3](https://github.com/ipfs/go-ds-s3) ，那么迁移可能需要使用内置的插件构建自定义迁移。这里提供了一个脚本来协助这个过程：`build-plugin.sh`
+> If IPFS plugins were used to operate your IPFS datastore, such as the [ipfs-ds-s3](https://github.com/ipfs/go-ds-s3) plugin, then migration may require building a custom migration with the plugin built into it.  There is a script to assist with the process: `build-plugin.sh`.
+
+
+### Build a Migration with a Plugin
+This requires that you have Go installed.
+
+First clone the `fs-repo-migrations` github repo:
+```sh
+git clone https://github.com/ipfs/fs-repo-migrations.git
+```
+
+Then run the `build-plugin.sh` script, supplying the necessary arguments (run with -h for help).
+
+### Run the Custom Migration
+After the custom migration with plugin(s) has built successfully, change to the migration directory and run the migration binary.  You can also copy the migration binary into your `PATH` if you want it to be run by `ipfs-update` or by the `fs-repo-migrations` tool.
 
 ## Table of Contents
 
@@ -29,11 +49,13 @@ make install
 
 ## Usage
 
-### When should I migrate
+### 迁移时间节点
 
-When you want to upgrade go-ipfs to a new version, you may need to migrate.
+当你想升级 go-ipfs 到新版本，你需要迁移
+> When you want to upgrade go-ipfs to a new version, you may need to migrate.
 
-Here is the table showing which repo version corresponds to which go-ipfs version:
+这里是 存储仓库版本 与 go-ipfs 版本 的关联关系。
+> Here is the table showing which repo version corresponds to which go-ipfs version:
 
 | ipfs repo version | go-ipfs versions |
 | ----------------: | :--------------- |
@@ -84,22 +106,6 @@ git push origin fs-repo-99-to-100/v1.0.1
 ### Dependencies
 
 Dependencies must be vendored independently for each migration. Each migration is a separate go module with its own `vendor` directory (created with `go mod vendor` for that migration).  All migrations are built using `go build -mod=vendor` to ensure dependencies come from the module's `vendor` directory.
-
-## Migration with Plugins
-If IPFS plugins were used to operate your IPFS datastore, such as the [ipfs-ds-s3](https://github.com/ipfs/go-ds-s3) plugin, then migration may require building a custom migration with the plugin built into it.  There is a script to assist with the process: `build-plugin.sh`.
-
-### Build a Migration with a Plugin
-This requires that you have Go installed.
-
-First clone the `fs-repo-migrations` github repo:
-```sh
-git clone https://github.com/ipfs/fs-repo-migrations.git
-```
-
-Then run the `build-plugin.sh` script, supplying the necessary arguments (run with -h for help).
-
-### Run the Custom Migration
-After the custom migration with plugin(s) has built successfully, change to the migration directory and run the migration binary.  You can also copy the migration binary into your `PATH` if you want it to be run by `ipfs-update` or by the `fs-repo-migrations` tool.
 
 ## Contribute
 
