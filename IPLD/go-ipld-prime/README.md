@@ -4,6 +4,7 @@ go-ipld-prime
 IPLD 数据模型的 Golang 接口，包括核心编解码器、IPLD 模式支持，及一些方便的功能转换工具。
 
 `go-ipld-prime` 是 IPLD 规范接口的实现，是用于 CBOR 和 JSON 数据格式的 IPLD 编解码器实现，用于 IPLD 对象基本操作的工具
+- CBOR (Concise Binary Object Representation) : 简洁的二进制对象表示
 > `go-ipld-prime` is an implementation of the IPLD spec interfaces,
 a batteries-included codec implementations of IPLD for CBOR and JSON,
 and tooling for basic operations on IPLD objects (traversals, etc).
@@ -13,16 +14,18 @@ and tooling for basic operations on IPLD objects (traversals, etc).
 API
 ---
 
-The API is split into several packages based on responsibly of the code.
-The most central interfaces are the base package,
-but you'll certainly need to import additional packages to get concrete implementations into action.
+根据代码功能，`API` 分为多个模块。最核心的接口是基础包，你需要导入更多的包，以便将实现具体的功能。
+> The API is split into several packages based on responsibly of the code.
+> The most central interfaces are the base package,
+> but you'll certainly need to import additional packages to get concrete implementations into action.
 
-Roughly speaking, the core package interfaces are all about the IPLD Data Model;
-the `codec/*` packages contain functions for parsing serial data into the IPLD Data Model,
-and converting Data Model content back into serial formats;
-the `traversal` package is an example of higher-order functions on the Data Model;
-concrete `ipld.Node` implementations ready to use can be found in packages in the `node/*` directory;
-and several additional packages contain advanced features such as IPLD Schemas.
+粗略地说，核心包的接口都是关于IPLD数据模型的；`codec/*` 包含了将序列化数据 与 IPLD数据模型 互转的方法；`traversal` 是IPLD 数据模型的高阶函数；具体的 `ipld.Node` 实现可以在 `node/*` 目录下的包中找到；几个额外的软件包 包含高级功能，如IPLD模式。
+> Roughly speaking, the core package interfaces are all about the IPLD Data Model;
+> the `codec/*` packages contain functions for parsing serial data into the IPLD Data Model,
+> and converting Data Model content back into serial formats;
+> the `traversal` package is an example of higher-order functions on the Data Model;
+> concrete `ipld.Node` implementations ready to use can be found in packages in the `node/*` directory;
+> and several additional packages contain advanced features such as IPLD Schemas.
 
 (Because the codecs, as well as higher-order features like traversals, are
 implemented in a separate package from the core interfaces or any of the Node implementations,
@@ -30,26 +33,48 @@ you can be sure they're not doing any funky "magic" -- all this stuff will work 
 if you want to write your own extensions, whether for new Node implementations
 or new codecs, or new higher-order order functions!)
 
-- `github.com/ipld/go-ipld-prime` -- imported as just `ipld` -- contains the core interfaces for IPLD.  The most important interfaces are `Node`, `NodeBuilder`, `Path`, and `Link`.
-- `github.com/ipld/go-ipld-prime/node/basicnode` -- provides concrete implementations of `Node` and `NodeBuilder` which work for any kind of data, using unstructured memory.
-- `github.com/ipld/go-ipld-prime/node/bindnode` -- provides concrete implementations of `Node` and `NodeBuilder` which store data in native golang structures, interacting with it via reflection.  Also supports IPLD Schemas!
-- `github.com/ipld/go-ipld-prime/traversal` -- contains higher-order functions for traversing graphs of data easily.
-- `github.com/ipld/go-ipld-prime/traversal/selector` -- contains selectors, which are sort of like regexps, but for trees and graphs of IPLD data!
+- `github.com/ipld/go-ipld-prime` -- 仅作为 `ipld` 导入，包含了 IPLD 的核心接口。最重要的接口是 `Node`, `NodeBuilder`, `Path`, and `Link`。
+> imported as just `ipld` -- contains the core interfaces for IPLD.  The most important interfaces are `Node`, `NodeBuilder`, `Path`, and `Link`.
+
+- `github.com/ipld/go-ipld-prime/node/basicnode` -- `Node` and `NodeBuilder` 的具体实现，使用非结构化内存处理任何类型的数据。
+> -- provides concrete implementations of `Node` and `NodeBuilder` which work for any kind of data, using unstructured memory.
+
+- `github.com/ipld/go-ipld-prime/node/bindnode` -- `Node` and `NodeBuilder` 的具体实现，用 golang 结构体 存储数据，通过反射提供接口。也支持 IPLD 模式。
+> -- provides concrete implementations of `Node` and `NodeBuilder` which store data in native golang structures, interacting with it via reflection.  Also supports IPLD Schemas!
+
+- `github.com/ipld/go-ipld-prime/traversal` -- 包含高阶函数，用于轻松遍历数据图。
+> -- contains higher-order functions for traversing graphs of data easily.
+
+- `github.com/ipld/go-ipld-prime/traversal/selector` -- 包含选择器，有点像正则表达式，但用于 IPLD 数据的树和图！
+> -- contains selectors, which are sort of like regexps, but for trees and graphs of IPLD data!
+
 - `github.com/ipld/go-ipld-prime/codec` -- parent package of all the codec implementations!
-- `github.com/ipld/go-ipld-prime/codec/dagcbor` -- implementations of marshalling and unmarshalling as CBOR (a fast, binary serialization format).
-- `github.com/ipld/go-ipld-prime/codec/dagjson` -- implementations of marshalling and unmarshalling as JSON (a popular human readable format).
-- `github.com/ipld/go-ipld-prime/linking/cid` -- imported as `cidlink` -- provides concrete implementations of `Link` as a CID.  Also, the multicodec registry.
-- `github.com/ipld/go-ipld-prime/schema` -- contains the `schema.Type` and `schema.TypedNode` interface declarations, which represent IPLD Schema type information.
-- `github.com/ipld/go-ipld-prime/node/typed` -- provides concrete implementations of `schema.TypedNode` which decorate a basic `Node` at runtime to have additional features described by IPLD Schemas.
+
+- `github.com/ipld/go-ipld-prime/codec/dagcbor` -- CBOR ( 高效的二进制格式 ) 编码 & 解码实现
+> -- implementations of marshalling and unmarshalling as CBOR (a fast, binary serialization format).
+
+- `github.com/ipld/go-ipld-prime/codec/dagjson` -- JSON 编码 & 解码实现
+> -- implementations of marshalling and unmarshalling as JSON (a popular human readable format).
+
+- `github.com/ipld/go-ipld-prime/linking/cid` -- CID `Link` 的实现
+> -- imported as `cidlink` -- provides concrete implementations of `Link` as a CID.  Also, the multicodec registry.
+
+- `github.com/ipld/go-ipld-prime/schema` -- `schema.Type` and `schema.TypedNode` 接口声明，作为 IPLD 模式类型信息。
+> -- contains the `schema.Type` and `schema.TypedNode` interface declarations, which represent IPLD Schema type information.
+
+- `github.com/ipld/go-ipld-prime/node/typed` -- schema.TypedNode的具体实现，在运行时对基本节点(`Node`)进行装饰，使其具有IPLD模式描述的额外功能。
+> -- provides concrete implementations of `schema.TypedNode` which decorate a basic `Node` at runtime to have additional features described by IPLD Schemas.
 
 
 Getting Started
 ---------------
 
-Let's say you want to create some data programmatically,
+假设您想以编程方式创建一些数据，然后对其进行序列化，或者将其保存为 `blocks`。
+> Let's say you want to create some data programmatically,
 and then serialize it, or save it as [blocks].
 
-You've got a ton of different options, depending on what golang convention you want to use:
+您有很多不同的选项，具体取决于您要使用的 golang 约定
+> You've got a ton of different options, depending on what golang convention you want to use:
 
 - the `qp` package -- [example](https://pkg.go.dev/github.com/ipld/go-ipld-prime/fluent/qp#example-package)
 - the `bindnode` system, if you want to use golang types -- [example](https://pkg.go.dev/github.com/ipld/go-ipld-prime/node/bindnode#example-Wrap-NoSchema), [example with schema](https://pkg.go.dev/github.com/ipld/go-ipld-prime/node/bindnode#example-Wrap-WithSchema)
@@ -61,16 +86,18 @@ you can serialize it:
 
 https://pkg.go.dev/github.com/ipld/go-ipld-prime#example-package-CreateDataAndMarshal
 
-But probably you want to do more than that;
+但你可能想做的不止这些；你可能想把这些数据存储为一个块，并得到一个链接到它的CID。你可以用 `LinkSystem`
+> But probably you want to do more than that;
 probably you want to store this data as a block,
 and get a CID that links back to it.
 For this you use `LinkSystem`:
 
 https://pkg.go.dev/github.com/ipld/go-ipld-prime/linking#example-LinkSystem.Store
 
+希望这些案例对你有用。 API 文档应该有助于你。我们也强烈建议详读 [godocs](https://pkg.go.dev/github.com/ipld/go-ipld-prime)  中的其他范例代码，在不同的包中都有!
 Hopefully these pointers give you some useful getting-started focal points.
 The API docs should help from here on out.
-We also highly recommend scanning the [godocs](https://pkg.go.dev/github.com/ipld/go-ipld-prime) for other pieces of example code, in various packages!
+We also highly recommend scanning the  for other pieces of example code, in various packages!
 
 Let us know in [issues](https://github.com/ipld/go-ipld-prime/issues), [chat, or other community spaces](https://ipld.io/docs/intro/community/) if you need more help,
 or have suggestions on how we can improve the getting-started experiences!
@@ -104,19 +131,30 @@ Most of these predate go-ipld-prime and no longer receive active development,
 but since they do support a lot of other software, you may continue to seem them around for a while.
 go-ipld-prime is generally **serially compatible** with these -- just like it is with IPLD libraries in other languages.
 
-In terms of programmatic API and features, go-ipld-prime is a clean take on the IPLD interfaces,
-and chose to address several design decisions very differently than older generation of libraries:
+在编程API和功能方面，go-ipld-prime对IPLD的接口进行了简洁的处理，并选择了与老一代库非常不同的几个设计策略。
+> In terms of programmatic API and features, go-ipld-prime is a clean take on the IPLD interfaces,
+> and chose to address several design decisions very differently than older generation of libraries:
 
-- **The Node interfaces map cleanly to the IPLD Data Model**;
-- Many features known to be legacy are dropped;
-- The Link implementations are purely CIDs (no "name" nor "size" properties);
-- The Path implementations are provided in the same box;
-- The JSON and CBOR implementations are provided in the same box;
-- Several odd dependencies on blockstore and other interfaces that were closely coupled with IPFS are replaced by simpler, less-coupled interfaces;
-- New features like IPLD Selectors are only available from go-ipld-prime;
-- New features like ADLs (Advanced Data Layouts), which provide features like transparent sharding and indexing for large data, are only available from go-ipld-prime;
-- Declarative transformations can be applied to IPLD data (defined in terms of the IPLD Data Model) using go-ipld-prime;
-- and many other small refinements.
+- **节点接口与IPLD数据模型的映射很清晰**;
+- 许多已知的遗留功能被放弃了;
+- `Link` 是 CIDs 的纯粹实现（没有了 name 、size 属性）
+- 在同一个包中实现了 Path;
+- 在同一个包中实现了 JSON & CBOR;
+- 一些依赖 `blockstore` 及其他与 IPFS 紧密耦合的接口，被更简单、更少耦合的接口所取代;
+- IPLD 选择器等**新功能** 仅可从 go-ipld-prime 获得;
+- 像ADL（高级数据布局）这样的新功能，提供了透明分片和大数据索引等功能，仅可从 go-ipld-prime 获得;
+- 可以使用 go-ipld-prime 将声明性转换应用于 IPLD 数据（根据 IPLD 数据模型定义）;
+
+> - **The Node interfaces map cleanly to the IPLD Data Model**;
+> - Many features known to be legacy are dropped;
+> - The Link implementations are purely CIDs (no "name" nor "size" properties);
+> - The Path implementations are provided in the same box;
+> - The JSON and CBOR implementations are provided in the same box;
+> - Several odd dependencies on blockstore and other interfaces that were closely coupled with IPFS are replaced by simpler, less-coupled interfaces;
+> - New features like IPLD Selectors are only available from go-ipld-prime;
+> - New features like ADLs (Advanced Data Layouts), which provide features like transparent sharding and indexing for large data, are only available from go-ipld-prime;
+> - Declarative transformations can be applied to IPLD data (defined in terms of the IPLD Data Model) using go-ipld-prime;
+> - and many other small refinements.
 
 In particular, the clean and direct mapping of "Node" to concepts in the IPLD Data Model
 ensures a much more consistent set of rules when working with go-ipld-prime data, regardless of which codecs are involved.
